@@ -1,5 +1,7 @@
+import Router from "./Routes/router";
+
 const App = () => {
-  return <div className="App">app - evolution soft</div>;
+  return <Router />;
 };
 
 export default App;
