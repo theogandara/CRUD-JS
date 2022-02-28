@@ -1,12 +1,4 @@
-import {
-  Card,
-  Description,
-  Image,
-  NameClient,
-  DeleteButton,
-  EditButton,
-  SuspendItems,
-} from "./style";
+import { Card, Description, Image, NameClient, SuspendItems,IconCase } from "./style";
 import { FaTrash } from "react-icons/fa";
 import { GrEdit } from "react-icons/gr";
 
@@ -19,12 +11,12 @@ const ClientCard = ({ title, description, image }) => {
       </SuspendItems>
       <Description>{description}</Description>
       <SuspendItems>
-        <DeleteButton>
-          <FaTrash />
-        </DeleteButton>
-        <EditButton>
-          <GrEdit />
-        </EditButton>
+        <IconCase>
+          <FaTrash onClick={() => console.log("trash")} />
+        </IconCase>
+        <IconCase>
+          <GrEdit onClick={() => console.log("edit")} />
+        </IconCase>
       </SuspendItems>
     </Card>
   );
