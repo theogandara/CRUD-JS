@@ -1,13 +1,18 @@
-import { Header, SuportBar, Button, Title, Divider, SubTitle, Display } from "./style";
+import { SuportBar, Button, Title, Divider, SubTitle, Display } from "./style";
 import ClientCard from "../../components/ClientCard";
+import { useHistory } from "react-router-dom";
+import Header from "../../components/Header";
 
 const Dashboard = () => {
+
+  const history = useHistory()
+
   return (
     <div>
       <Header>EvolutionSoft</Header>
       <SuportBar>
         <Title>Dashboard</Title>
-        <Button>new client</Button>
+        <Button onClick={()=> history.push("/register")} >new client</Button>
       </SuportBar>
       <Divider />
       <Display>
