@@ -51,6 +51,13 @@ export const Divider = styled.hr`
 export const Display = styled.div`
   width: 100vw;
   display: flex;
+  justify-content: center;
+`;
+
+export const CostumersDisplay = styled.div`
+  width: 70vw;
+  min-width: 320px;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `;
