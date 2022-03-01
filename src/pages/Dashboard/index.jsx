@@ -37,9 +37,10 @@ const Dashboard = () => {
               editFunction={editClient}
               client={client}
               title={client.title}
-              image={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU"
-              }
+              // image={
+              //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU"
+              // }
+              image={client.image}
             />
           ))}
           {clientList.length <= 0 && <h3>:( no customers yet</h3>}
