@@ -14,7 +14,7 @@ import { useContext } from "react";
 import { ClientContext } from "../../Providers/Client";
 
 const Dashboard = () => {
-  const { clientList } = useContext(ClientContext);
+  const { clientList, removeClient } = useContext(ClientContext);
 
   const history = useHistory();
 
@@ -32,6 +32,8 @@ const Dashboard = () => {
           {clientList.map((client) => (
             <ClientCard
               description={client.description}
+              deleteFunction={removeClient}
+              client={client}
               title={client.title}
               image={
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU"
