@@ -2,7 +2,7 @@ import { Card, Description, Image, NameClient, SuspendItems,IconCase } from "./s
 import { FaTrash } from "react-icons/fa";
 import { GrEdit } from "react-icons/gr";
 
-const ClientCard = ({ title, description, image, deleteFunction, client }) => {
+const ClientCard = ({ title, description, image, deleteFunction, client, editFunction }) => {
   return (
     <Card>
       <SuspendItems>
@@ -15,7 +15,7 @@ const ClientCard = ({ title, description, image, deleteFunction, client }) => {
           <FaTrash onClick={() => deleteFunction(client)} />
         </IconCase>
         <IconCase>
-          <GrEdit onClick={() => console.log("edit")} />
+          <GrEdit onClick={() => editFunction(client)} />
         </IconCase>
       </SuspendItems>
     </Card>

@@ -14,7 +14,7 @@ import { useContext } from "react";
 import { ClientContext } from "../../Providers/Client";
 
 const Dashboard = () => {
-  const { clientList, removeClient } = useContext(ClientContext);
+  const { clientList, removeClient, editClient } = useContext(ClientContext);
 
   const history = useHistory();
 
@@ -26,13 +26,15 @@ const Dashboard = () => {
         <Button onClick={() => history.push("/register")}>new client</Button>
       </SuportBar>
       <Divider />
-        <SubTitle>customers</SubTitle>
+      <SubTitle>customers</SubTitle>
       <Display>
         <CostumersDisplay>
           {clientList.map((client) => (
             <ClientCard
+              key={client.id}
               description={client.description}
               deleteFunction={removeClient}
+              editFunction={editClient}
               client={client}
               title={client.title}
               image={

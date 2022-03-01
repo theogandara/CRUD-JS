@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
 import Input from "../../components/Input";
-import { Title, Divider, SuportBar, Button, Form } from "./style";
+import { Title, Divider, SuportBar, Button, Form, Image } from "./style";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -11,10 +11,8 @@ import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { ClientContext } from "../../Providers/Client";
 
-const Register = () => {
-
-  const { addClient } = useContext(ClientContext);
-
+const ClientPage = () => {
+  const { client } = useContext(ClientContext);
   const history = useHistory();
 
   const formSchema = yup.object().shape({
@@ -32,8 +30,6 @@ const Register = () => {
   });
 
   const onSubmit = (data) => {
-    data.id = Math.floor(Math.random() * 100)
-    addClient(data)
     history.push("/");
   };
 
@@ -41,35 +37,43 @@ const Register = () => {
     <div>
       <Header>EvolutionSoft</Header>
       <SuportBar>
-        <Title>Register</Title>
+        <Title>clientPage</Title>
         <Button onClick={() => history.push("/")}>dashboard</Button>
       </SuportBar>
       <Divider />
       <Form onSubmit={handleSubmit(onSubmit)}>
-      <h3>new customer</h3>
+        <h3>edit client</h3>
+        <Image
+          src={
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU"
+          }
+          alt={client?.title}
+        />
         <Input
           register={register}
           placeholder="insert client name"
           name="title"
           error={errors.title?.message}
+          value={client?.title}
         />
         <Input
           register={register}
           placeholder="insert description"
           name="description"
           error={errors.description?.message}
+          value={client?.description}
         />
         <Input
           register={register}
           placeholder="insert category"
           name="category"
           error={errors.category?.message}
+          value={client?.category}
         />
-        <Button>submit</Button>
+        <Button>update</Button>
       </Form>
-      <Divider />
     </div>
   );
 };
 
-export default Register;
+export default ClientPage;
