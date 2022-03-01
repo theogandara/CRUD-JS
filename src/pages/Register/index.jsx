@@ -8,7 +8,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useHistory } from "react-router-dom";
 
+import { useContext } from "react";
+import { ClientContext } from "../../Providers/Client";
+
 const Register = () => {
+
+  const { addClient } = useContext(ClientContext);
+
   const history = useHistory();
 
   const formSchema = yup.object().shape({
@@ -26,7 +32,8 @@ const Register = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    data.id = Math.floor(Math.random() * 100)
+    addClient(data)
     history.push("/");
   };
 
