@@ -12,8 +12,6 @@ export const ClientProvider = ({ children }) => {
     api
       .get("/clients")
       .then((response) => {
-        console.log("api respondeu !");
-        console.log(response);
         setClients([...response.data]);
       })
       .catch((err) => console.log(err));
@@ -45,7 +43,6 @@ export const ClientProvider = ({ children }) => {
   const updateClient = (editClient) => {
     editClient.image =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU";
-      console.log("updateClient",editClient)
     api
       .put(`/clients/${editClient.id}`, editClient)
       .then(() => {

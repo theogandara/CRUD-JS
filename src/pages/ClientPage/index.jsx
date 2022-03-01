@@ -8,17 +8,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useHistory } from "react-router-dom";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ClientContext } from "../../Providers/Client";
 
 const ClientPage = () => {
   const { client, updateClient } = useContext(ClientContext);
+
+  const [title, setTitle] = useState(client?.title);
+  const [description, setDescription] = useState(client?.description);
+  const [category, setCategory] = useState(client?.category);
+
   const history = useHistory();
 
   const formSchema = yup.object().shape({
-    title: yup.string().required("*enter company name"),
-    description: yup.string().required("*enter a description"),
-    category: yup.string().required("*enter company category"),
+    title: yup.string(),
+    description: yup.string(),
+    category: yup.string(),
   });
 
   const {
@@ -30,6 +35,9 @@ const ClientPage = () => {
   });
 
   const onSubmit = (data) => {
+    data.description = description;
+    data.title = title;
+    data.category = category;
     data.id = client.id;
     updateClient(data);
     history.push("/");
@@ -39,34 +47,32 @@ const ClientPage = () => {
     <div>
       <Header>EvolutionSoft</Header>
       <SuportBar>
-        <Title>clientPage</Title>
+        <Title>edit client</Title>
         <Button onClick={() => history.push("/")}>dashboard</Button>
       </SuportBar>
       <Divider />
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h3>edit client</h3>
         <Image src={client?.image} alt={client?.title} />
         <Input
           register={register}
           placeholder="insert client name"
           name="title"
           error={errors.title?.message}
-          // value="erre"
-          // value={client?.title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <Input
           register={register}
           placeholder="insert description"
           name="description"
           error={errors.description?.message}
-          value={client?.description}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <Input
           register={register}
           placeholder="insert category"
           name="category"
           error={errors.category?.message}
-          value={client?.category}
+          onChange={(e) => setCategory(e.target.value)}
         />
         <Button>update</Button>
       </Form>
