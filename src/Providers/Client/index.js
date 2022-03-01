@@ -1,42 +1,75 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
+import { api } from "../../services/api";
 
 export const ClientContext = createContext();
 
 export const ClientProvider = ({ children }) => {
-  const [clientList, setClients] = useState([
-    { title: "McDonalds", description: "lorem ipsum lorem ipsunm", id: 1010 },
-    { title: "Nike", description: "lorem ipsum lorem ipsunm", id: 1020 },
-    { title: "Adidas", description: "lorem ipsum lorem ipsunm", id: 1030 },
-    { title: "Ferrari", description: "lorem ipsum lorem ipsunm", id: 1040 },
-    { title: "Armani", description: "lorem ipsum lorem ipsunm", id: 1050 },
-    { title: "Gucci", description: "lorem ipsum lorem ipsunm", id: 1060 },
-  ]);
+  const [clientList, setClients] = useState([]);
 
-  const addClient = (newClient) => {
-    setClients([...clientList, newClient]);
+  const loadClients = () => {
+    api
+      .get("/clients")
+      .then((response) => {
+        console.log("api respondeu !");
+        console.log(response);
+        setClients([...response.data]);
+      })
+      .catch((err) => console.log(err));
   };
 
-  const history = useHistory({});
+  const addClient = (newClient) => {
+    newClient.image =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU";
+
+    api
+      .post("clients", newClient)
+      .then((response) => {
+        loadClients();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const history = useHistory();
 
   const [client, setClient] = useState({});
 
   const editClient = (editClient) => {
-    setClient(editClient);
+    setClient(editClient)
     history.push("/client");
   };
 
-  const removeClient = (removeClient) => {
-    setClients(
-      clientList.filter((client) => {
-        return removeClient.id !== client.id;
+  const updateClient = (editClient) => {
+    editClient.image =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU";
+      console.log("updateClient",editClient)
+    api
+      .put(`/clients/${editClient.id}`, editClient)
+      .then(() => {
+        loadClients();
       })
-    );
+      .catch((_) => console.log("erro"));
   };
+
+  const removeClient = (removeClient) => {
+    api
+      .delete(`/clients/${removeClient.id}`)
+      .then(() => {
+        loadClients();
+      })
+      .catch((_) => console.log("erro"));
+  };
+
+  useEffect(() => {
+    loadClients();
+  }, []);
 
   return (
     <ClientContext.Provider
-      value={{ clientList, addClient, removeClient, editClient, client }}
+      value={{ clientList, addClient, removeClient, editClient, client, updateClient }}
     >
       {children}
     </ClientContext.Provider>

@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { ClientContext } from "../../Providers/Client";
 
 const ClientPage = () => {
-  const { client } = useContext(ClientContext);
+  const { client, updateClient } = useContext(ClientContext);
   const history = useHistory();
 
   const formSchema = yup.object().shape({
@@ -30,6 +30,8 @@ const ClientPage = () => {
   });
 
   const onSubmit = (data) => {
+    data.id = client.id;
+    updateClient(data);
     history.push("/");
   };
 
@@ -43,18 +45,14 @@ const ClientPage = () => {
       <Divider />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h3>edit client</h3>
-        <Image
-          src={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hiRPzio5oqb6NVVUomgl7DxI0_JFrtybU2OMOFzNY_jGyZoGQ9iopOiqNeobqnzWML8&usqp=CAU"
-          }
-          alt={client?.title}
-        />
+        <Image src={client?.image} alt={client?.title} />
         <Input
           register={register}
           placeholder="insert client name"
           name="title"
           error={errors.title?.message}
-          value={client?.title}
+          // value="erre"
+          // value={client?.title}
         />
         <Input
           register={register}
