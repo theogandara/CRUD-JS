@@ -40,6 +40,7 @@ const Dashboard = () => {
               }
             />
           ))}
+          {clientList.length <= 0 && <h3>:( no customers yet</h3>}
         </CostumersDisplay>
       </Display>
     </div>
